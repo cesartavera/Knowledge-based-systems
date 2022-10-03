@@ -1,0 +1,21 @@
+CLIPS> (defrule r1(monkey near door)(monkey farfrom window) => (printout t "monkey goes to the box" crlf)(assert(monkey near box))(retract 1)(retract 2))
+CLIPS> (defrule r2(monkey near box)(monkey hands-free) => (printout t "monkey took the box" crlf)(retract 4)(assert(monkey hands-busy))(assert(monkey grabbed-box)))
+CLIPS> (defrule r3(monkey near box)(monkey hands-busy)(monkey grabbed-box) => (printout t "monkey goes below the banana" crlf)(assert(monkey below-banana)))
+CLIPS> (defrule r4(monkey grabbed-box)(monkey below-banana) => (printout t "monkey drop the box" crlf)(assert(monkey drop-box))(retract 5)(retract 6))
+CLIPS> (defrule r5(monkey near box)(monkey below-banana)(monkey drop-box) => (printout t "monkey on top of box" crlf)(assert(monkey on-box))(retract 8))
+CLIPS> (defrule r6(monkey on-box) => (printout t "monkey eat banana" crlf)(assert(monkey eat-banana)))
+CLIPS> (facts)
+CLIPS> (assert(monkey near door))
+<Fact-1>
+CLIPS> (assert(monkey farfrom window))
+<Fact-2>
+CLIPS> (run)
+monkey goes to the box
+CLIPS> (assert(monkey hands-free))
+<Fact-4>
+CLIPS> (run)
+monkey took the box
+monkey goes below the banana
+monkey drop the box
+monkey on top of box
+monkey eat banana
